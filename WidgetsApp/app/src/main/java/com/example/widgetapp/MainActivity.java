@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     TextView textView;
     EditText editText;
     Button button;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "You Clicked The Button", Toast.LENGTH_SHORT).show();
             }
         });
+
+        imageView = findViewById(R.id.imageView);
     }
 }
