@@ -31,8 +31,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-    <EditText
-        android:id="@+id/text"
+    <TextView
+        android:id="@+id/textView"
         android:text="The Greetings App"
         android:textSize="20sp"
         android:layout_width="wrap_content"
