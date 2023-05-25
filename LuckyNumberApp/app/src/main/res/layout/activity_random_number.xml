@@ -4,44 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".randomNumber">
 
     <TextView
-        android:id="@+id/welcomeText"
+        android:id="@+id/luckyNumberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome To Lucky Number Generator"
-        android:textSize="20sp"
+        android:text="Your Lucky Number Is"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.162" />
+        app:layout_constraintVertical_bias="0.141" />
 
-    <EditText
-        android:id="@+id/nameText"
+    <TextView
+        android:id="@+id/luckyNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Please Enter Your Name"
+        android:layout_marginBottom="408dp"
+        android:text="0"
+        android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.184"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeText"
-        app:layout_constraintVertical_bias="0.183" />
+        app:layout_constraintTop_toBottomOf="@+id/luckyNumberText"
+        app:layout_constraintVertical_bias="0.889" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/shareButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sing In"
+        android:text="Share My Lucky Number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameText"
-        app:layout_constraintVertical_bias="0.241" />
+        app:layout_constraintTop_toBottomOf="@+id/luckyNumber"
+        app:layout_constraintVertical_bias="0.279" />
 </androidx.constraintlayout.widget.ConstraintLayout>
