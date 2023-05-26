@@ -8,12 +8,14 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     CheckBox firstBox, secondBox;
     Button button;
+    RadioButton first, second;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         firstBox = findViewById(R.id.firstCheckBox);
         secondBox = findViewById(R.id.secondCheckBox);
         button = findViewById(R.id.button);
+        first = findViewById(R.id.with);
+        second = findViewById(R.id.without);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,8 +36,15 @@ public class MainActivity extends AppCompatActivity {
                 if (secondBox.isChecked()) {
                     Toast.makeText(getApplicationContext(), "Second Box Is Clicked", Toast.LENGTH_SHORT).show();
                 }
+                if (first.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "First Radio Clicked", Toast.LENGTH_SHORT).show();
+                }
+                if (second.isChecked()) {
+                    Toast.makeText(getApplicationContext(), "Second Radio Button Clicked", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
     }
 
     @Override
