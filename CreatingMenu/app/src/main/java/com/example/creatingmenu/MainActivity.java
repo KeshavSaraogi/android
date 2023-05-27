@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TimePicker;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     RadioButton first, second;
     Spinner spinner;
     TimePicker timePicker;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         timeButton = findViewById(R.id.timeButton);
         spinner = findViewById(R.id.firstSpinner);
         timePicker = findViewById(R.id.timePicker);
+        progressBar = findViewById(R.id.progressBar);
 
         timePicker.setIs24HourView(true);
         timePicker = findViewById(R.id.timePicker);
@@ -83,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DialogFragment timeFragment= new TimePickerFragment();
                 timeFragment.show(getSupportFragmentManager(), "Pick A Time Now: ");
+                progressBar.incrementProgressBy(10);
             }
         });
 
@@ -93,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
                 dialogFragment.show(getSupportFragmentManager(), "Pick A Date Now: ");
             }
         });
-
-
     }
 
     @Override
