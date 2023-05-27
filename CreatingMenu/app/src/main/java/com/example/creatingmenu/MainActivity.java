@@ -19,7 +19,7 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     CheckBox firstBox, secondBox;
-    Button button, timeButton;
+    Button button, timeButton, dateButton;
     RadioButton first, second;
     Spinner spinner;
     TimePicker timePicker;
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button = findViewById(R.id.button);
+        dateButton = findViewById(R.id.buttonDate);
         timeButton = findViewById(R.id.timeButton);
         spinner = findViewById(R.id.firstSpinner);
         timePicker = findViewById(R.id.timePicker);
@@ -84,6 +85,16 @@ public class MainActivity extends AppCompatActivity {
                 timeFragment.show(getSupportFragmentManager(), "Pick A Time Now: ");
             }
         });
+
+        dateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment dialogFragment = new DatePickerFragment();
+                dialogFragment.show(getSupportFragmentManager(), "Pick A Date Now: ");
+            }
+        });
+
+
     }
 
     @Override
