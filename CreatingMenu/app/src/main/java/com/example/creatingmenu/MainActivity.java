@@ -1,6 +1,7 @@
 package com.example.creatingmenu;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,29 +13,36 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     CheckBox firstBox, secondBox;
-    Button button;
+    Button button, timeButton;
     RadioButton first, second;
     Spinner spinner;
+    TimePicker timePicker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        firstBox = findViewById(R.id.firstCheckBox);
-        secondBox = findViewById(R.id.secondCheckBox);
         button = findViewById(R.id.button);
-        first = findViewById(R.id.with);
-        second = findViewById(R.id.without);
+        timeButton = findViewById(R.id.timeButton);
         spinner = findViewById(R.id.firstSpinner);
+        timePicker = findViewById(R.id.timePicker);
+
+        timePicker.setIs24HourView(true);
+        timePicker = findViewById(R.id.timePicker);
+        timePicker.setIs24HourView(true);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String currentTime = "Time: " + timePicker.getCurrentHour() + " : " + timePicker.getCurrentMinute();
+                Toast.makeText(getApplicationContext(), "" + currentTime, Toast.LENGTH_LONG).show();
+
                 if (firstBox.isChecked()) {
                     Toast.makeText(getApplicationContext(), "First Box Is Clicked", Toast.LENGTH_SHORT).show();
                 }
@@ -65,13 +73,17 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(), "You Selected " + courses[position], Toast.LENGTH_SHORT).show();
             }
-
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment timeFragment= new TimePickerFragment();
+                timeFragment.show(getSupportFragmentManager(), "Pick A Time Now: ");
+            }
+        });
     }
 
     @Override
