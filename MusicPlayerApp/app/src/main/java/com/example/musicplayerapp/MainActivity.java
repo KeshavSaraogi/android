@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,5 +42,45 @@ public class MainActivity extends AppCompatActivity {
 
         mediaPlayer = MediaPlayer.create(this,R.raw.austronaut);
         songProgress.setClickable(false);
+
+        playArrowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlayMusic();
+            }
+        });
+    }
+
+    private void PlayMusic() {
+        mediaPlayer.start();
+        startTime = mediaPlayer.getCurrentPosition();
+        finalTime = mediaPlayer.getDuration();
+
+        if (once == 0) {
+            songProgress.setMax((int) finalTime);
+            once = 1;
+        }
+
+        timeLeft.setText(String.format("% min, %d sec",
+                TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
+                TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
+                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime))));
+
+        songProgress.setProgress((int) startTime);
+        handler.postDelayed(UpdateSongTime, 100);
+    }
+
+    private Runnable UpdateSongTime = new Runnable() {
+        @Override
+        public void run() {
+            startTime = mediaPlayer.getCurrentPosition();
+            timeLeft.setText(String.format("% min, %d sec",
+                    TimeUnit.MILLISECONDS.toMinutes((long) finalTime),
+                    TimeUnit.MILLISECONDS.toSeconds((long) finalTime) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes((long) finalTime))));
+
+            songProgress.setProgress((int) startTime);
+            handler.postDelayed(UpdateSongTime, 100);
+        }
     }
 }
