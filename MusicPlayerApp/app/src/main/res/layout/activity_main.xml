@@ -85,7 +85,7 @@
         app:layout_constraintVertical_bias="0.218" />
 
     <SeekBar
-        android:id="@+id/seekBar"
+        android:id="@+id/songProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -102,7 +102,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar"
+        app:layout_constraintTop_toBottomOf="@+id/songProgress"
         app:layout_constraintVertical_bias="0.07" />
 
     <TextView
