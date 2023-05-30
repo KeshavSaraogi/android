@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,12 +42,47 @@ public class MainActivity extends AppCompatActivity {
         songProgress = findViewById(R.id.songProgress);
 
         mediaPlayer = MediaPlayer.create(this,R.raw.austronaut);
-        songProgress.setClickable(false);
+
 
         playArrowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PlayMusic();
+            }
+        });
+
+        fastForwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int temp = (int) startTime;
+                if ((temp + finalTime) <= finalTime) {
+                    startTime = startTime + forwardTime;
+                    mediaPlayer.seekTo((int) startTime);
+                } else {
+                    Toast.makeText(MainActivity.this, "Cant Jump Forward", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        fastRewindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int temp = (int) startTime;
+                if ((temp - backwardTime) > 0) {
+                    startTime = startTime - backwardTime;
+                    mediaPlayer.seekTo((int) startTime);
+                } else {
+                    Toast.makeText(MainActivity.this, "Can't Jump Backward", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        songPlaying.setText(getResources().getIdentifier("astronaut", "raw",getPackageName()));
+        songProgress.setClickable(false);
+        playArrowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
@@ -82,5 +118,5 @@ public class MainActivity extends AppCompatActivity {
             songProgress.setProgress((int) startTime);
             handler.postDelayed(UpdateSongTime, 100);
         }
-    }
+    };
 }
