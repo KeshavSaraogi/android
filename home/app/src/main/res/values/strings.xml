@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">home</string>
+    <array name="items">
+        <item>Please Select A Product</item>
+        <item>TMT</item>
+        <item>Billet</item>
+        <item>Coal</item>
+        <item>Iron Ore</item>
+        <item>Sponge</item>
+        <item>Raw Pillets</item>
+        <item>Pig Iron</item>
+        <item>Scrape</item>
+    </array>
+    <array name="weight">
+        <item>Kilogram</item>
+        <item>Tonne</item>
+    </array>
+    <string name="billet">A billet is a length of metal that has a round or square cross-section, with an area less than 36 inch-sq (230 cm-sq). \nBillets are created directly via continuous casting or extrusion or indirectly via hot rolling an ingot or bloom.Billets are further processed via profile rolling and drawing.\nFinal products include bar stock and wire. \nCentrifugal casting is also used to produce short circular tubes as billets, usually to achieve a precise metallurgical structure.\nThey are commonly used as cylinder sleeves where the inner and outer diameters are ground and machined to length. \nBecause their size is not modified significantly, they are not always classified as semi-finished casting products.
+    </string>
+</resources>
