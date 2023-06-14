@@ -3,7 +3,10 @@ package com.example.worldcup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        listView.findViewById(R.id.listView);                               // listview       : adapter view
+        listView = findViewById(R.id.listView);                               // listview       : adapter view
 
         dataModel = new ArrayList<>();                                      // data model     : data source
         dataModel.add(new CountryModel("Brazil", "5", R.drawable.brazil));
@@ -31,7 +34,17 @@ public class MainActivity extends AppCompatActivity {
         dataModel.add(new CountryModel("USA", "0", R.drawable.usa));
 
         customAdapter = new CustomAdapter(dataModel, getApplicationContext());  // custom adapter : adapter
-
         listView.setAdapter(customAdapter);
+
+        //handling click events
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this,
+                            "Country: " + customAdapter.getItem(position).getCountryName() + "\n" +
+                            "World Cup Wins: " + customAdapter.getItem(position).getCupWins(),
+                            Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
