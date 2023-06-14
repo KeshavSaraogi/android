@@ -4,25 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/countryImage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="59dp"
+        android:layout_height="59dp"
+        android:layout_margin="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/countryText"
-        android:text="Country Name"
-        android:textSize="24sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Country Name"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/countryImage"
         app:layout_constraintTop_toTopOf="parent" />
 
