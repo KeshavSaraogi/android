@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class VaccineAdapter extends RecyclerView.Adapter<VaccineAdapter.MyViewHolder> {
 
+    //4. onclick event
+    private  ItemClickListener itemClickListener;
+
     //1. datasource
     private VaccineModel[] dataSource;
 
@@ -18,8 +21,13 @@ public class VaccineAdapter extends RecyclerView.Adapter<VaccineAdapter.MyViewHo
         this.dataSource = dataSource;
     }
 
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
     //2. describes the item, view and the meta-data about its place within the recycler view.
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder
+    implements View.OnClickListener{
 
         public ImageView imageView;
         public TextView textView;
@@ -28,6 +36,14 @@ public class VaccineAdapter extends RecyclerView.Adapter<VaccineAdapter.MyViewHo
             super(itemView);
             this.imageView = (itemView).findViewById(R.id.vaccineImage);
             this.textView = (itemView).findViewById(R.id.vaccineText);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (itemClickListener != null ){
+                itemClickListener.onClick(v, getAdapterPosition());
+            }
         }
     }
 
