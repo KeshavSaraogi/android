@@ -2,12 +2,12 @@ package com.example.topgames;
 
 public class CardModel {
 
-    private int image;
     private String title;
+    private int image;
 
-    public CardModel(int image, String title) {
-        this.image = image;
+    public CardModel(String title, int image) {
         this.title = title;
+        this.image = image;
     }
 
     public int getImage() {
