@@ -1,8 +1,7 @@
 package com.example.fragments;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-
+import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
@@ -12,7 +11,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewPager2 viewPager2 = findViewById(R.id.viewPager2);
-        viewPager2.setAdapter(new MyPagerAdapter(this));
+        ViewPager viewPager2 = findViewById(R.id.viewPager2);
+
+        MyPagerAdapter myPagerAdapter = new MyPagerAdapter(this);
+        viewPager2.setAdapter(myPagerAdapter);
     }
 }

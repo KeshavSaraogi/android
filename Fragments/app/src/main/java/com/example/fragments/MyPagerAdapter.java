@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
+import java.util.HashMap;
+
 public class MyPagerAdapter extends PagerAdapter {
 
     private Context context;
@@ -19,18 +21,19 @@ public class MyPagerAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        ModelCourse modelCourse = ModelCouse.values()[position];
+        ModelCourse modelCourse = ModelCourse.values()[position];
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         ViewGroup layout = (ViewGroup) layoutInflater.inflate(modelCourse.getLayoutID(),container, false);
+        return layout;
     }
 
     @Override
     public int getCount() {
-        return 0;
+        return ModelCourse.values().length;
     }
 
     @Override
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return false;
+        return view == object;
     }
 }
