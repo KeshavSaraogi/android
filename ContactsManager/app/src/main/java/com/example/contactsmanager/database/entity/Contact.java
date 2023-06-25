@@ -45,7 +45,7 @@ public class Contact {
 
     //Creating SQLite Queries
     public static final String CREATE_TABLE = "CREATE TABLE + "
-            + TABLE_NAME +"("
+            + TABLE_NAME +"( "
             + COLUMN_ID + "INTEGER PRIMARY KEY AUTO INCREMENT, "
             + TABLE_NAME + " TEXT,"
             + COLUMN_EMAIL + " DATETIME DEFAULT CURRENT TIMESTAMP"
