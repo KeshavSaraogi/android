@@ -11,6 +11,8 @@ import androidx.room.Room;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,6 +30,15 @@ import com.example.contactsmanager.Adapter.ContactsAdapter;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         //db = new DatabaseHelper(this);
-        contactArrayList.addAll(database.getContactDAO().getContacts());
-
+        DisplayAllContactsInBackground();
+        
         contactsAdapter = new ContactsAdapter(this, contactArrayList,MainActivity.this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -150,6 +161,28 @@ public class MainActivity extends AppCompatActivity {
             contactsAdapter.notifyDataSetChanged();
         }
     }
+
+    private void DisplayAllContactsInBackground() {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                //Background Task
+                contactArrayList.addAll(database.getContactDAO().getContacts());
+
+                //After The Completion of Background Task
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        contactsAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        });
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
