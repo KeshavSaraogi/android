@@ -1,3 +1,4 @@
+/*
 package com.example.contactsmanager.database;
 
 import android.content.ContentValues;
@@ -104,3 +105,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 }
+*/
