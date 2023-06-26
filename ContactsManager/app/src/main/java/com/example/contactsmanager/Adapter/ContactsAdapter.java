@@ -17,13 +17,13 @@ import java.util.ArrayList;
 
 public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyViewHolder> {
 
-     //Variable
-    private Context context;
-    private ArrayList<Contact> contactsList;
-    private MainActivity mainActivity;
+    //Variables
+    private final Context context;
+    private final ArrayList<Contact> contactsList;
+    private final MainActivity mainActivity;
 
     //ViewHolder
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView name;
         public TextView email;
 
@@ -40,7 +40,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
         this.mainActivity = mainActivity;
     }
 
-
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,7 +47,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
                 inflate(R.layout.contact_list_item,parent,false);
         return new MyViewHolder(itemView);
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder,int positions) {
@@ -63,7 +61,6 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
             }
         });
     }
-
 
     @Override
     public int getItemCount() {

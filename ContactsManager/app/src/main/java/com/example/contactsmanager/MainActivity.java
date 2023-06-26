@@ -30,33 +30,22 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    // NO ROOM Database Project
-    // Using SQLITE
-
-
-
-    // Variables
     private ContactsAdapter contactsAdapter;
-    private ArrayList<Contact> contactArrayList  = new ArrayList<>();
-    private RecyclerView recyclerView;
+    private final ArrayList<Contact> contactArrayList  = new ArrayList<>();
     private DatabaseHelper db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("My Favorite Contacts");
 
-        // RecyclerVIew
-        recyclerView = findViewById(R.id.recycler_view_contacts);
+        RecyclerView recyclerView = findViewById(R.id.recycler_view_contacts);
         db = new DatabaseHelper(this);
 
-        // Contacts List
         contactArrayList.addAll(db.getAllContacts());
 
         contactsAdapter = new ContactsAdapter(this, contactArrayList,MainActivity.this);
@@ -65,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(contactsAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,9 +67,8 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());
         View view = layoutInflater.inflate(R.layout.layout_add_contact,null);
 
-        AlertDialog.Builder alerDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-        alerDialogBuilder.setView(view);
-
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        alertDialogBuilder.setView(view);
 
         TextView contactTitle = view.findViewById(R.id.new_contact_title);
         final EditText newContact = view.findViewById(R.id.name);
@@ -88,13 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
         contactTitle.setText(!isUpdated ? "Add New Contact" : "Edit Contact");
 
-
         if (isUpdated && contact != null){
             newContact.setText(contact.getName());
             contactEmail.setText(contact.getEmail());
         }
 
-        alerDialogBuilder.setCancelable(false)
+        alertDialogBuilder.setCancelable(false)
                 .setPositiveButton(isUpdated ? "Update" : "Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -105,16 +92,15 @@ public class MainActivity extends AppCompatActivity {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                if (isUpdated){
+                                if (isUpdated)
                                     DeleteContact(contact, position);
-                                }else{
+                                else
                                     dialogInterface.cancel();
-                                }
                             }
                         }
                 );
 
-        final AlertDialog alertDialog = alerDialogBuilder.create();
+        final AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
 
         alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
@@ -122,23 +108,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (TextUtils.isEmpty(newContact.getText().toString())){
                     Toast.makeText(MainActivity.this, "Please Enter a Name", Toast.LENGTH_SHORT).show();
-
                     return;
-                }else{
+                }else
                     alertDialog.dismiss();
-                }
-
-                if (isUpdated && contact != null){
+                if (isUpdated && contact != null)
                     UpdateContact(newContact.getText().toString(), contactEmail.getText().toString(),position);
-
-                }else{
+                else
                     CreateContact(newContact.getText().toString(), contactEmail.getText().toString());
-
-                }
-
             }
         });
-
     }
 
     private void DeleteContact(Contact contact, int position) {
@@ -146,7 +124,6 @@ public class MainActivity extends AppCompatActivity {
         db.deleteContact(contact);
         contactsAdapter.notifyDataSetChanged();
     }
-
 
     private void UpdateContact(String name, String email, int position){
         Contact contact = contactArrayList.get(position);
@@ -157,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
         contactsAdapter.notifyDataSetChanged();
     }
 
-
     private void CreateContact(String name, String email){
         long id = db.insertContact(name, email);
         Contact contact = db.getContact(id);
@@ -167,8 +143,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    // Menu bar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -178,9 +152,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.actionsSettings){
+        if (id == R.id.actionsSettings)
             return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 }

@@ -21,9 +21,7 @@ public class Contact {
         this.email = email;
         this.id = id;
     }
-
     // 4- Getters & Setters
-
 
     public String getName() {
         return name;
@@ -48,8 +46,6 @@ public class Contact {
     public void setId(int id) {
         this.id = id;
     }
-
-
 
     // 5- SQL Query: Creating the Table
     public static final String CREATE_TABLE =
