@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,16 +60,37 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("My Favorite Contacts");
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view_contacts);
+
+        //ROOM Database Callbacks
+        RoomDatabase.Callback callback = new RoomDatabase.Callback() {
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
+
+                CreateContact("Bill Gates","bill@microsoft.com");
+                CreateContact("Tim Cook","tim@apple.com");
+                CreateContact("Mark Zukerburg","mark@meta.com");
+
+                Log.i("TAG","Database Has Been Created");
+            }
+
+            @Override
+            public void onOpen(@NonNull SupportSQLiteDatabase db) {
+                super.onDestructiveMigration(db);
+                Log.i("TAG", "Database Has Been Opened");
+            }
+        };
+
         database = Room.databaseBuilder(
                 getApplicationContext(),
                 DB.class,
                 "contact")
-                .allowMainThreadQueries()
+                .addCallback(callback)
                 .build();
 
         //db = new DatabaseHelper(this);
         DisplayAllContactsInBackground();
-        
+
         contactsAdapter = new ContactsAdapter(this, contactArrayList,MainActivity.this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
