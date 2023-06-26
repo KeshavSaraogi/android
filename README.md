@@ -9,3 +9,8 @@
 - World Cup Application
 - World Cup Application
 - Top Games Application
+- Contacts Manager
+
+
+### Technologies Used 
+- SQLite
