@@ -2,8 +2,8 @@
 <layout xmlns:bind="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="spinnerAdapter"
-            type="android.widget.ArrayAdapter" />
+            name = "spinnerAdapter"
+            type = "android.widget.ArrayAdapter" />
         
         <variable
             name = "clickHandlers"
