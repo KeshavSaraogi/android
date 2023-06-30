@@ -45,7 +45,7 @@ public class CourseRepository {
         });
     }
 
-    private void insertCourse(Course course) {
+    public void insertCourse(Course course) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -71,7 +71,7 @@ public class CourseRepository {
         });
     }
 
-    private void deleteCourse(Course course) {
+    public void deleteCourse(Course course) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -84,7 +84,7 @@ public class CourseRepository {
         });
     }
 
-    private void updateCategory(Category category) {
+    public void updateCategory(Category category) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -97,7 +97,7 @@ public class CourseRepository {
         });
     }
 
-    private void updateCourse(Course course) {
+    public void updateCourse(Course course) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 

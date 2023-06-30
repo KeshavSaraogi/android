@@ -13,8 +13,7 @@ import androidx.databinding.library.baseAdapters.BR;
 public class Category extends BaseObservable {
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "category_id")
-    private int categoryId;
+    public int id;
     @ColumnInfo(name = "category_name")
     private String categoryName;
     @ColumnInfo(name = "category_description")
@@ -23,19 +22,19 @@ public class Category extends BaseObservable {
     @Ignore
     public Category() {}
 
-    public Category(int categoryId, String categoryName, String categoryDescription) {
-        this.categoryId = categoryId;
+    public Category(int id, String categoryName, String categoryDescription) {
+        this.id = id;
         this.categoryName = categoryName;
         this.categoryDescription = categoryDescription;
     }
 
     @Bindable
     public int getId() {
-        return categoryId;
+        return id;
     }
 
     public void setId(int categoryId) {
-        this.categoryId = categoryId;
+        this.id = categoryId;
         notifyPropertyChanged(BR.id);
     }
 
@@ -56,7 +55,6 @@ public class Category extends BaseObservable {
 
     public void setCategoryDescription(String categoryDescription) {
         this.categoryDescription = categoryDescription;
-        notifyPropertyChanged(BR.id);
         notifyPropertyChanged(BR.categoryDescription);
     }
 }

@@ -21,6 +21,7 @@ public class Course extends BaseObservable {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "course_id")
     private int courseId;
+    @ColumnInfo(name = "category_id")
     private int categoryId;
     @ColumnInfo(name = "course_name")
     private String courseName;
