@@ -1,12 +1,16 @@
 package com.example.learningmanagementapplication;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +28,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int ADD_COURSE_REQUESTED_CODE    = 1;
+    private static final int EDIT_COURSE_REQUESTED_CODE   = 2;
+
     private MainActivityViewModel mainActivityViewModel;
     private ArrayList<Category> categoriesList;
     private ActivityMainBinding activityMainBinding;
@@ -32,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView courseRecyclerView;
     private CourseAdapter courseAdapter;
     private ArrayList<Course> courseList;
+
+    public int selectedCourseId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,19 +97,71 @@ public class MainActivity extends AppCompatActivity {
         courseAdapter = new CourseAdapter();
         courseRecyclerView.setAdapter(courseAdapter);
         courseAdapter.setCourses(courseList);
-    }
 
-    public class MainActivityClickHandler {
+        courseAdapter.setListener(new CourseAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(Course course) {
+                selectedCourseId = course.getCourseId();
 
-        public void onFabClicked(View view) {
-            Toast.makeText(getApplicationContext(), "FAB CLICKED", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, AddEditActivity.class);
+                intent.putExtra(AddEditActivity.COURSE_ID, selectedCourseId);
+                intent.putExtra(AddEditActivity.COURSE_NAME, course.getCourseName());
+                intent.putExtra(AddEditActivity.COURSE_DESCRIPTION, course.getCourseDescription());
+                startActivityForResult(intent, EDIT_COURSE_REQUESTED_CODE);
+            }
+        });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Course courseToDelete = courseList.get(viewHolder.getAdapterPosition());
+                mainActivityViewModel.deleteCourse(courseToDelete);
+            }
+        }).attachToRecyclerView(courseRecyclerView);
+
+        class MainActivityClickHandler {
+
+            public void onFabClicked(View view) {
+                Intent intent = new Intent(MainActivity.this, AddEditActivity.class);
+                startActivityForResult(intent, ADD_COURSE_REQUESTED_CODE);
+            }
+
+            public void onSelectedItem(AdapterView<?> parent, View view, int position, long id) {
+                selectedCategory = (Category) parent.getItemAtPosition(position);
+                String message = "ID is: " + selectedCategory.getId() + "\n Name Is: " + selectedCategory.getCategoryName();
+                Toast.makeText(parent.getContext(), "" + message, Toast.LENGTH_SHORT).show();
+                loadCoursesList(selectedCategory.getId());
+            }
         }
 
-        public void onSelectedItem(AdapterView<?> parent, View view, int position, long id) {
-            selectedCategory = (Category) parent.getItemAtPosition(position);
-            String message = "ID is: " + selectedCategory.getId() + "\n Name Is: " + selectedCategory.getCategoryName();
-            Toast.makeText(parent.getContext(), "" + message, Toast.LENGTH_SHORT).show();
-            loadCoursesList(selectedCategory.getId());
+        @Override
+        protected void onActivityResult (int requestCode, int resultCode, @Nullable Intent data){
+            super.onActivityResult(requestCode, resultCode, data);
+
+            int selectedCategoryId = selectedCategory.getId();
+
+            if (requestCode == ADD_COURSE_REQUESTED_CODE && resultCode == RESULT_OK){
+
+                Course course = new Course();
+                course.setCategoryId(selectedCategoryId);
+                course.setCourseName(data.getStringExtra(AddEditActivity.COURSE_NAME));
+                course.setCourseDescription(data.getStringExtra(AddEditActivity.COURSE_DESCRIPTION));
+                mainActivityViewModel.addNewCourse(course);
+            }
+            else if (requestCode == EDIT_COURSE_REQUESTED_CODE && resultCode == RESULT_OK) {
+
+                Course course = new Course();
+                course.setCategoryId(selectedCategoryId);
+                course.setCourseName(data.getStringExtra(AddEditActivity.COURSE_NAME));
+                course.setCourseDescription(data.getStringExtra(AddEditActivity.COURSE_DESCRIPTION));
+                course.setCourseId(selectedCourseId);
+                mainActivityViewModel.updateCourse(course);
+            }
         }
     }
 }
