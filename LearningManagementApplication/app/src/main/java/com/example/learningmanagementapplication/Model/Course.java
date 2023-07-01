@@ -9,7 +9,10 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import static androidx.room.ForeignKey.CASCADE;
 
-import androidx.databinding.library.baseAdapters.BR;
+
+import com.example.learningmanagementapplication.BR;
+
+import java.util.Objects;
 
 @Entity(tableName = "course_table",
         foreignKeys = @ForeignKey(entity = Category.class,
@@ -76,5 +79,21 @@ public class Course extends BaseObservable {
     public void setCourseDescription(String courseDescription) {
         this.courseDescription = courseDescription;
         notifyPropertyChanged(BR.courseDescription);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return courseId == course.courseId
+                && categoryId == course.categoryId
+                && Objects.equals(courseName, course.courseName)
+                && Objects.equals(courseDescription, course.courseDescription);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(courseId, categoryId, courseName, courseDescription);
     }
 }
