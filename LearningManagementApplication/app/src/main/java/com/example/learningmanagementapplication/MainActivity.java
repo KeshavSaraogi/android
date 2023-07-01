@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding activityMainBinding;
     private MainActivityClickHandler clickHandler;
     private Category selectedCategory;
+    private RecyclerView courseRecyclerView;
+    private CourseAdapter courseAdapter;
+    private ArrayList<Course> courseList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +70,26 @@ public class MainActivity extends AppCompatActivity {
         activityMainBinding.setSpinnerAdapter(categoryArrayAdapter);
     }
 
+    public void loadCoursesList(int categoryId) {
+        mainActivityViewModel.getSelectedCourses(categoryId).observe(this, new Observer<List<Course>>() {
+            @Override
+            public void onChanged(List<Course> courses) {
+                courseList = (ArrayList<Course>) courses;
+                loadRecyclerView();
+            }
+        });
+    }
+
+    public void loadRecyclerView() {
+        courseRecyclerView = activityMainBinding.secondaryLayout.recyclerView;
+        courseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        courseRecyclerView.setHasFixedSize(true);
+
+        courseAdapter = new CourseAdapter();
+        courseRecyclerView.setAdapter(courseAdapter);
+        courseAdapter.setCourses(courseList);
+    }
+
     public class MainActivityClickHandler {
 
         public void onFabClicked(View view) {
@@ -75,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
             selectedCategory = (Category) parent.getItemAtPosition(position);
             String message = "ID is: " + selectedCategory.getId() + "\n Name Is: " + selectedCategory.getCategoryName();
             Toast.makeText(parent.getContext(), "" + message, Toast.LENGTH_SHORT).show();
+            loadCoursesList(selectedCategory.getId());
         }
     }
 }
