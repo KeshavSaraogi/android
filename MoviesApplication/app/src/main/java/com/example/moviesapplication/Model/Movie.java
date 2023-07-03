@@ -2,15 +2,19 @@ package com.example.moviesapplication.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.library.baseAdapters.BR;
 
 import java.util.List;
 import javax.annotation.Generated;
 
+import com.bumptech.glide.Glide;
+import com.example.moviesapplication.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -218,6 +222,16 @@ public class Movie extends BaseObservable implements Parcelable{
             return new Movie[size];
         }
     };
+
+    @BindingAdapter({"posterPath"})
+    public static void loadImage(ImageView imageView, String imageURL){
+        //URL: https://image.tmdb.org/t/p/[poster_path]
+        String imagePath = "https://image.tmdb.org/t/p/w500" + imageURL;
+
+        Glide.with(imageView.getContext())
+                .load(imagePath)
+                .into(imageView);
+    }
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
