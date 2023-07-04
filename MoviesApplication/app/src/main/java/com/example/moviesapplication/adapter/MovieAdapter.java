@@ -1,4 +1,4 @@
-package com.example.moviesapplication.Adapter;
+package com.example.moviesapplication.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moviesapplication.Model.Movie;
+import com.example.moviesapplication.model.Movie;
 import com.example.moviesapplication.R;
-import com.example.moviesapplication.View.MovieActivity;
+import com.example.moviesapplication.view.MovieActivity;
 import com.example.moviesapplication.databinding.MovieItemBinding;
 
 import java.util.ArrayList;

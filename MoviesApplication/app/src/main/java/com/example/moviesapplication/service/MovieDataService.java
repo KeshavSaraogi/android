@@ -1,6 +1,6 @@
-package com.example.moviesapplication.Service;
+package com.example.moviesapplication.service;
 
-import com.example.moviesapplication.Model.Result;
+import com.example.moviesapplication.model.Result;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

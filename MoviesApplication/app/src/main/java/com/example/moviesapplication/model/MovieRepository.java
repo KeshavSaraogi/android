@@ -1,12 +1,12 @@
-package com.example.moviesapplication.Model;
+package com.example.moviesapplication.model;
 
 import android.app.Application;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.moviesapplication.R;
-import com.example.moviesapplication.Service.MovieDataService;
-import com.example.moviesapplication.Service.RetrofitInstance;
+import com.example.moviesapplication.service.MovieDataService;
+import com.example.moviesapplication.service.RetrofitInstance;
 
 import java.util.ArrayList;
 

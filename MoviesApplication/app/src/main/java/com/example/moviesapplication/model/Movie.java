@@ -1,4 +1,4 @@
-package com.example.moviesapplication.Model;
+package com.example.moviesapplication.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,7 +14,6 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import com.bumptech.glide.Glide;
-import com.example.moviesapplication.R;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -248,7 +247,7 @@ public class Movie extends BaseObservable implements Parcelable{
         dest.writeValue(overview);
         dest.writeValue(adult);
         dest.writeValue(releaseDate);
-        dest.writeList(genreIds);
+        //dest.writeList(genreIds);
     }
 
     public Movie() {}
@@ -267,6 +266,6 @@ public class Movie extends BaseObservable implements Parcelable{
         this.adult = (Boolean) p.readValue(Integer.class.getClassLoader());
         this.overview = (String) p.readValue(Integer.class.getClassLoader());
         this.releaseDate = (String) p.readValue(Integer.class.getClassLoader());
-        p.readList(this.genreIds, java.lang.Integer.class.getClassLoader());
+        //p.readList(this.genreIds, java.lang.Integer.class.getClassLoader());
     }
 }

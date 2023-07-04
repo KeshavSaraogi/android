@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools" >
+    xmlns:card_view="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View" />
         <variable
             name="movie"
-            type="com.example.moviesapplication.Model.Movie" />
+            type="com.example.moviesapplication.model.Movie" />
     </data>
     
     <LinearLayout
@@ -46,8 +46,8 @@
                    android:paddingRight="10dp"
                    android:paddingTop="10dp"
                    android:text="@{movie.title}"
-                   android:textColor="@color/colorPrimary"
-                   android:textSize="15dp" />
+                   android:textColor="@color/purple_500"
+                   android:textSize="15sp" />
                
                <TextView
                    android:layout_width="match_parent"
@@ -57,9 +57,9 @@
                    android:paddingLeft="10dp"
                    android:paddingRight="10dp"
                    android:paddingBottom="5dp"
-                   android:textColor="@color/colorAccent"
+                   android:textColor="@color/white"
                    android:text="@{Double.toString(movie.voteAverage)}"
-                   android:textSize="12dp"/>
+                   android:textSize="12sp"/>
                
            </RelativeLayout>
        </androidx.cardview.widget.CardView>

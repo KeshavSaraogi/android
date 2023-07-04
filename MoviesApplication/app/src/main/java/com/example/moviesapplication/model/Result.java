@@ -1,4 +1,4 @@
-package com.example.moviesapplication.Model;
+package com.example.moviesapplication.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -68,7 +68,7 @@ public class Result implements Parcelable {
         this.page = ((Integer) p.readValue((Integer.class.getClassLoader())));
         this.totalResults = ((Integer) p.readValue((Integer.class.getClassLoader())));
         this.totalPages = ((Integer) p.readValue((Integer.class.getClassLoader())));
-        p.readList(this.results, (com.example.moviesapplication.Model.Movie.class.getClassLoader()));
+        p.readList(this.results, (com.example.moviesapplication.model.Movie.class.getClassLoader()));
     }
 
     public final static Parcelable.Creator<Result> CREATOR = new Creator<Result>() {

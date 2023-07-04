@@ -1,89 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="movie"
-            type="com.example.moviesapplication.Model.Movie" />
+            name="secondaryMovie"
+            type="com.example.moviesapplication.model.Movie" />
     </data>
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.example.moviesapplication.View.MovieActivity"
-        tools:showIn="@layout/activity_movie" >
+        tools:context="com.example.moviesapplication.view.MovieActivity"
+        tools:showIn="@layout/activity_movie">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ad" >
+            android:id="@+id/ad">
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:showIn="@layout/activity_movie" >
-                
+                tools:showIn="@layout/activity_movie">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-                    
+                    android:layout_height="wrap_content">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/movieTitle"
-                        android:layout_marginLeft="10dp"
+                        android:id="@+id/tvMovieTitle"
                         android:padding="16dp"
-                        android:marginTop="3dp"
+                        android:layout_marginTop="3dp"
                         android:textSize="20sp"
                         android:text="@{secondaryMovie.title}"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintBaseline_toTopOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginStart="16dp"
-                        tools:constraintTop_creator="1"
-                        tools:layout_constraintLeft_creator="1" />
+                        tools:layout_constraintTop_creator ="1"
+                        tools:layout_constraintLeft_creator ="1"
+                        />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/movieRating"
-                        android:layout_marginLeft="10dp"
+                        android:id="@+id/tvMovieRating"
                         android:padding="16dp"
                         android:textSize="20sp"
-                        app:layout_constraintTop_toBottomOf="@+id/movieTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/tvMovieTitle"
                         android:text="@{Double.toString(secondaryMovie.voteAverage)}"
                         android:layout_marginStart="16dp"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintBaseline_toTopOf="parent"
-                        tools:constraintTop_creator="1" />
+                        tools:layout_constraintTop_creator="1" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/releaseDate"
-                        android:layout_marginLeft="10dp"
+                        android:id="@+id/tvReleaseDate"
+                        android:text="@{secondaryMovie.releaseDate}"
+                        android:layout_marginStart="10sp"
                         android:padding="16dp"
                         android:textSize="20sp"
-                        app:layout_constraintTop_toBottomOf="@+id/movieRating"
-                        android:text="@{Double.toString(secondaryMovie.releaseDate)}"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        />
+                        app:layout_constraintTop_toBottomOf="@+id/tvMovieRating"
+                        app:layout_constraintLeft_toLeftOf="parent" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/plot"
-                        android:layout_marginLeft="10dp"
+                        android:text="@{secondaryMovie.overview}"
+                        android:layout_marginStart="10dp"
                         android:padding="16dp"
                         android:textSize="20sp"
-                        app:layout_constraintTop_toBottomOf="@+id/releaseDate"
-                        android:text="@{Double.toString(secondaryMovie.overview)}"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        />
+                        app:layout_constraintTop_toBottomOf="@+id/tvReleaseDate"
+                        app:layout_constraintLeft_toLeftOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
