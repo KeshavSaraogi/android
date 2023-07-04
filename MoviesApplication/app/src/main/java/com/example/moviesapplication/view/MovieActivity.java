@@ -22,8 +22,8 @@ public class MovieActivity extends AppCompatActivity {
         activityMovieBinding = DataBindingUtil.setContentView(this,R.layout.activity_movie);
 
         Intent intent = getIntent();
-        if (intent.hasExtra("movie")) {
-            movie = getIntent().getParcelableExtra("movie");
+        if (intent != null) {
+            movie = intent.getParcelableExtra("movie");
             activityMovieBinding.setMovie(movie);
             getSupportActionBar().setTitle(movie.getTitle());
         }
