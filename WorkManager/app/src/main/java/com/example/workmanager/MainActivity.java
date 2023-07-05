@@ -1,13 +1,16 @@
 package com.example.workmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
 import androidx.work.WorkRequest;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,5 +29,17 @@ public class MainActivity extends AppCompatActivity {
                 WorkManager.getInstance(getApplicationContext()).enqueue(workRequest);
             }
         });
+
+        //Display The Status of Work Manager
+        WorkManager.getInstance(getApplicationContext())
+                .getWorkInfoByIdLiveData(workRequest.getId())
+                .observe(this, new Observer<WorkInfo>() {
+                    @Override
+                    public void onChanged(WorkInfo workInfo) {
+                        if (workInfo != null) {
+                            Toast.makeText(getApplicationContext(),"Status: " + workInfo.getState().name(),Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

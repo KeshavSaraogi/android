@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
@@ -29,7 +30,7 @@ public class DemoWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10000; i++) {
             Log.i("TAG", "The Count Is: " + i);
         }
         return Result.success();
