@@ -18,5 +18,10 @@
         android:id="@+id/secondFragment"
         android:name="com.example.navigation.SecondFragment"
         android:label="fragment_second"
-        tools:layout="@layout/fragment_second" />
+        tools:layout="@layout/fragment_second" >
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="Micheal Jordan" />
+    </fragment>
 </navigation>
