@@ -1,7 +1,9 @@
 package com.example.workmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.Observer;
+import androidx.work.Constraints;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
@@ -21,8 +23,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button = findViewById(R.id.button);
+        Constraints constraints = new Constraints.Builder().setRequiresCharging(true).build();
 
-        WorkRequest workRequest = new OneTimeWorkRequest.Builder(DemoWorker.class).build();
+        WorkRequest workRequest = new
+                OneTimeWorkRequest
+                        .Builder(DemoWorker.class)
+                        .setConstraints(constraints)
+                        .build();
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,5 +49,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+        //Working with Constraints - Running the app under certain conditions
+        // The app continues only if the device is connected to WIFI and not mobile data
+        // The App continues only if the device is above 20% mobile battery
+
+
     }
 }
