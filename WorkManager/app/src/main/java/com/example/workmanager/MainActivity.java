@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.Observer;
 import androidx.work.Constraints;
+import androidx.work.Data;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     Button button;
+    public static final String KEY_COUNTER = "key_count";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +28,13 @@ public class MainActivity extends AppCompatActivity {
         button = findViewById(R.id.button);
         Constraints constraints = new Constraints.Builder().setRequiresCharging(true).build();
 
+        Data data = new Data.Builder().putInt(KEY_COUNTER, 600).build();
+
         WorkRequest workRequest = new
                 OneTimeWorkRequest
                         .Builder(DemoWorker.class)
-                        .setConstraints(constraints)
+                //        .setConstraints(constraints)
+                        .setInputData(data)
                         .build();
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -46,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onChanged(WorkInfo workInfo) {
                         if (workInfo != null) {
                             Toast.makeText(getApplicationContext(),"Status: " + workInfo.getState().name(),Toast.LENGTH_SHORT).show();
+                        }
+
+                        if (workInfo.getState().isFinished()) {
+                            Data data = workInfo.getOutputData();
+                            String msg = data.getString(DemoWorker.KEY);
+                            Toast.makeText(getApplicationContext(), ""+ msg,Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

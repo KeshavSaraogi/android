@@ -4,11 +4,14 @@ import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.work.Data;
 import androidx.work.WorkManager;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
 public class DemoWorker extends Worker {
+
+    public static final String KEY = "SENT";
 
     public DemoWorker(@NonNull Context context, @NonNull WorkerParameters workerParameters) {
         super(context,workerParameters);
@@ -30,9 +33,16 @@ public class DemoWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        for (int i = 0; i < 10000; i++) {
+
+        Data data = getInputData();
+        int limit = data.getInt(MainActivity.KEY_COUNTER, 0);
+
+        for (int i = 0; i < limit; i++) {
             Log.i("TAG", "The Count Is: " + i);
         }
-        return Result.success();
+        Data toSend = new Data.Builder().putString(KEY, "Task Done Successfully").build();
+        return Result.success(toSend);
     }
+    //Sending Data and Done Info
+
 }
