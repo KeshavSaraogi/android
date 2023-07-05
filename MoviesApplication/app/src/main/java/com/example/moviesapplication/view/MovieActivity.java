@@ -26,6 +26,7 @@ public class MovieActivity extends AppCompatActivity {
             movie = intent.getParcelableExtra("movie");
             activityMovieBinding.setMovie(movie);
             getSupportActionBar().setTitle(movie.getTitle());
+
         }
     }
 }

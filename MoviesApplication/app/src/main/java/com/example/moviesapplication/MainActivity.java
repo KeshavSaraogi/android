@@ -1,6 +1,7 @@
 package com.example.moviesapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -33,10 +34,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         getSupportActionBar().setTitle("Movies");
 
         activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        getPopularMovies();
 
         swipeRefreshLayout = activityMainBinding.swipeLayout;
         swipeRefreshLayout.setColorSchemeResources(R.color.teal_200);
@@ -52,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         mainActivityViewModel.getAllMovies().observe(this, new Observer<ArrayList<Movie>>() {
             @Override
             public void onChanged(ArrayList<Movie> moviesFromLiveData) {
-                movies = (ArrayList<Movie>) moviesFromLiveData;
+                movies = moviesFromLiveData;
                 ShowOnRecyclerView();
             }
         });
