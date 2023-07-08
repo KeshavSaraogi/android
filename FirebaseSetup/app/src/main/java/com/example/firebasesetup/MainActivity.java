@@ -15,8 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
@@ -24,15 +22,21 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
     TextView gold;
 
+    Button saveCredentials;
+    EditText username, password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("gold").child("price");
-        button = findViewById(R.id.button);
-        editText = findViewById(R.id.editTextNumber);
-        gold = findViewById(R.id.gold);
+//        mDatabase = FirebaseDatabase.getInstance().getReference("gold").child("price");
+//        button = findViewById(R.id.button);
+//        editText = findViewById(R.id.editTextNumber);
+//        gold = findViewById(R.id.gold);
+        saveCredentials = findViewById(R.id.saveCredentials);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,5 +59,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //writing data to firebase
+        mDatabase = FirebaseDatabase.getInstance().getReference("myUsers");
+        saveCredentials.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseModel modelOne = new DatabaseModel(username.getText().toString(), password.getText().toString());
+                mDatabase.setValue(modelOne);
+            }
+        });
+
     }
 }
