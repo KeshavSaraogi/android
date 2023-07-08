@@ -1,4 +1,4 @@
-package com.example.firestoreapp;
+ package com.example.firestoreapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
