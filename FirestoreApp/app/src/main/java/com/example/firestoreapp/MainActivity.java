@@ -1,6 +1,7 @@
  package com.example.firestoreapp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -14,9 +15,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import org.w3c.dom.Text;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +29,7 @@ import java.util.Map;
      public static final String KEY_EMAIL = "email";
 
     private EditText nameET, emailET;
-    private Button saveInfo, readInfo;
+    private Button saveInfo, readInfo, updateInfo, deleteInfo;
     private TextView text, display;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -42,7 +44,9 @@ import java.util.Map;
         emailET = findViewById(R.id.email);
         display = findViewById(R.id.text);
         saveInfo = findViewById(R.id.button);
+        updateInfo = findViewById(R.id.update);
         readInfo = findViewById(R.id.readButton);
+        deleteInfo = findViewById(R.id.delete);
 
         saveInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +60,19 @@ import java.util.Map;
                 readData();
             }
         });
+        updateInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDate();
+            }
+        });
 
+        deleteInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteData();
+            }
+        });
     }
 
      private void saveDataToFireStore() {
@@ -93,5 +109,49 @@ import java.util.Map;
                 }
             }
         });
+     }
+     private void updateDate() {
+         String name = nameET.getText().toString().trim();
+         String email = emailET.getText().toString().trim();
+
+         Map<String, Object> data = new HashMap<>();
+         data.put(KEY_NAME, name);
+         data.put(KEY_EMAIL, email);
+
+         friendsReference.update(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+             @Override
+             public void onSuccess(Void unused) {
+                 Toast.makeText(MainActivity.this, "Data Updated",Toast.LENGTH_SHORT).show();
+             }
+         });
+     }
+
+     private void deleteData() {
+        friendsReference.update(KEY_NAME, FieldValue.delete());
+        friendsReference.update(KEY_EMAIL,FieldValue.delete());
+     }
+
+     private void deleteAll() {
+        friendsReference.delete();
+     }
+
+     @Override
+     protected void onStart(){
+        super.onStart();
+
+        //listening all the time during the app lifecycle
+         friendsReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+             @Override
+             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                 if (error != null){
+                     Toast.makeText(MainActivity.this, "Error Found",Toast.LENGTH_SHORT).show();
+                 }
+                 if (value != null && value.exists()) {
+                     String name = value.getString(KEY_NAME);
+                     String email = value.getString(KEY_EMAIL);
+                     display.setText("Username: " + name + "\nEmail: " + email);
+                 }
+             }
+         });
      }
  }
