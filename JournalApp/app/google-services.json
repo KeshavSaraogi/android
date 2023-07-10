@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "878681359669",
+    "project_id": "journal-app-d83b9",
+    "storage_bucket": "journal-app-d83b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878681359669:android:9c4c8e4e8609a516d1f87c",
+        "android_client_info": {
+          "package_name": "com.example.journalapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878681359669-v130cqm1c7r8af75op40h79dpngdl8g3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.journalapp",
+            "certificate_hash": "59afde56dcd5303046d6f5ee1dd3318783226cc6"
+          }
+        },
+        {
+          "client_id": "878681359669-4fqc16c2sqtdhsn9jhrh8f28i8jvd4nh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSAQAibfK9EjZzf3t0dtg_ZTRRjzA2GJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878681359669-4fqc16c2sqtdhsn9jhrh8f28i8jvd4nh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
