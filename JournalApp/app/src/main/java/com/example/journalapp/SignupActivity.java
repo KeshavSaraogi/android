@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.journalapp.utilities.JournalUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -110,8 +111,13 @@ public class SignupActivity extends AppCompatActivity {
                                             // if yes, move the user to AddJournal Activity
                                             if (Objects.requireNonNull(task.getResult()).exists()) {
                                                 String name = task.getResult().getString("username");
-                                                Intent intent = new Intent(SignupActivity.this, AddJournalActivity.class);
 
+                                                JournalUser journalUser = new JournalUser();
+                                                journalUser.getInstance();
+                                                journalUser.setUserID(currentUserID);
+                                                journalUser.setUsername(name);
+
+                                                Intent intent = new Intent(SignupActivity.this, AddJournalActivity.class);
                                                 intent.putExtra("username", name);
                                                 intent.putExtra("userID", currentUserID);
                                                 startActivity(intent);
