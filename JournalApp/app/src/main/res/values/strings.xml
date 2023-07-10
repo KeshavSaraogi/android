@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">JournalApp</string>
+    <string name="textWelcome">Welcome To Journal App</string>
+    <string name="createAccount">Create An Account</string>
 </resources>
