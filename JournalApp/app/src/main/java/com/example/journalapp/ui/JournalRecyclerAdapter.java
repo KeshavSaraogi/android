@@ -17,12 +17,12 @@ import com.example.journalapp.model.Journal;
 
 import java.util.List;
 
-public class JournalRecyclerView extends RecyclerView.Adapter<JournalRecyclerAdapter.ViewHolder>{
+public class JournalRecyclerAdapter extends RecyclerView.Adapter<JournalRecyclerAdapter.ViewHolder>{
 
     private Context context;
     private List<Journal> journalList;
 
-    public JournalRecyclerView(Context context, List<Journal> journalList) {
+    public JournalRecyclerAdapter(Context context, List<Journal> journalList) {
         this.context = context;
         this.journalList = journalList;
     }
@@ -74,7 +74,7 @@ public class JournalRecyclerView extends RecyclerView.Adapter<JournalRecyclerAda
             description = itemView.findViewById(R.id.journal_description_list);
             dateAdded = itemView.findViewById(R.id.journalTimestamp);
             image = itemView.findViewById(R.id.journal_image_list);
-            username = itemView.findViewById(R.id.journal_row_username);
+            name = itemView.findViewById(R.id.journal_row_username);
 
             shareButton = itemView.findViewById(R.id.journalItemShareButton);
             shareButton.setOnClickListener(new View.OnClickListener() {

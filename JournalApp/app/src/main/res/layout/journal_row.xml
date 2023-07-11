@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cornerRadius="8dp"
-    app:cardUseCompactPadding="true"
-    app:layout_margin="5dp" >
+    android:layout_margin="5dp" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,14 +17,14 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/journalItem"
+            android:id="@+id/journal_row_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start"
             android:padding="3dp"
             android:text="TITLE"
             android:textSize="17sp"
-            app:layout_weight="1" />
+            android:layout_weight="1" />
 
         <ImageButton
             android:id="@+id/journalItemShareButton"

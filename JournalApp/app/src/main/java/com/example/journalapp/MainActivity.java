@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    FirebaseUser user = firebaseUser.getCurrentUser();
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
 
                     assert user != null;
                     final String currentUserID = user.getUid();

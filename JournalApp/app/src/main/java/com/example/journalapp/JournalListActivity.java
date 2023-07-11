@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.journalapp.model.Journal;
-import com.example.journalapp.ui.JournalRecyclerView;
+import com.example.journalapp.ui.JournalRecyclerAdapter;
 import com.example.journalapp.utilities.JournalUser;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -71,18 +72,17 @@ public class JournalListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.actionAdd:
-                if (user != null && firebaseAuth != null) {
-                    startActivity(new Intent(JournalListActivity.this, AddJournalActivity.class));
-                }
-                break;
-            case R.id.actionSignOut:
-                if (user != null && firebaseAuth != null) {
-                    firebaseAuth.signOut();
-                    startActivity(new Intent(JournalListActivity.this, MainActivity.class));
-                }
-                break;
+        int itemID = item.getItemId();
+        if (itemID == R.id.actionAdd) {
+            if (user != null && firebaseAuth != null) {
+                startActivity(new Intent(JournalListActivity.this, AddJournalActivity.class));
+            }
+        }
+        else if (itemID == R.id.actionSignOut) {
+            if (user != null && firebaseAuth != null) {
+                firebaseAuth.signOut();
+                startActivity(new Intent(JournalListActivity.this, MainActivity.class));
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -104,7 +104,7 @@ public class JournalListActivity extends AppCompatActivity {
                             }
                             journalRecyclerAdapter = new JournalRecyclerAdapter(JournalListActivity.this, journalList);
                             recyclerView.setAdapter(journalRecyclerAdapter);
-                            journalRecyclerAdapater.notifyDataSetChanged();
+                            journalRecyclerAdapter.notifyDataSetChanged();
                         }
                         else {
                             numberPosts.setVisibility(View.VISIBLE);
@@ -115,6 +115,6 @@ public class JournalListActivity extends AppCompatActivity {
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(JournalListActivity.this,"Something Went Wrong " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                })
+                });
     }
 }
