@@ -1,5 +1,6 @@
 package com.example.texttransalation;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -11,8 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.mlkit.common.model.DownloadConditions;
 import com.google.mlkit.nl.translate.TranslateLanguage;
+import com.google.mlkit.nl.translate.Translation;
+import com.google.mlkit.nl.translate.Translator;
+import com.google.mlkit.nl.translate.TranslatorOptions;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             "FROM", "ENGLISH", "AFRIKAANS", "ARABIC", "BELARUSIAN", "CATALAN", "HINDI", "URDU" };
 
     String[] toLanguages = {
-            "FROM", "ENGLISH", "AFRIKAANS", "ARABIC", "BELARUSIAN", "CATALAN", "HINDI", "URDU" };
+            "TO", "ENGLISH", "AFRIKAANS", "ARABIC", "BELARUSIAN", "CATALAN", "HINDI", "URDU" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +81,65 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter toAdapter = new ArrayAdapter(this,R.layout.spinner_item, toLanguages);
         toAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         toLanguageSpinner.setAdapter(toAdapter);
+
+        translateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                translatedTV.setText("");
+
+                if (sourceTextET.getText().toString().isEmpty()) {
+                    Toast.makeText(MainActivity.this,
+                            "PLEASE ENTER TEXT",
+                            Toast.LENGTH_SHORT).show();
+                } else if (fromLanguageCode.isEmpty()) {
+                    Toast.makeText(MainActivity.this,
+                            "PLEASE SELECT SOURCE LANGUAGE",
+                            Toast.LENGTH_SHORT).show();
+                } else if(toLanguageCode.isEmpty()) {
+                    Toast.makeText(MainActivity.this,
+                            "PLEASE SELECT TARGET LANGUAGE",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    translateText(fromLanguageCode, toLanguageCode, sourceTextET.getText().toString());
+                }
+            }
+        });
+    }
+
+    private void translateText(String fromLanguageCode, String toLanguageCode, String source) {
+        translatedTV.setText("DOWNLOADING LANGUAGE MODEL");
+
+        TranslatorOptions options = new TranslatorOptions.Builder()
+                .setSourceLanguage(fromLanguageCode)
+                .setTargetLanguage(fromLanguageCode).build();
+
+        Translator translator = Translation.getClient(options);
+        DownloadConditions conditions = new DownloadConditions.Builder().build();
+
+        translator.downloadModelIfNeeded(conditions).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                translatedTV.setText("TRANSLATING ...");
+                translator.translate(source).addOnSuccessListener(new OnSuccessListener<String>() {
+                    @Override
+                    public void onSuccess(String s) {
+                        translatedTV.setText(s);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this,
+                                "FAILED TO TRANSLATE TEXT", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this,
+                                "FAILED TO DOWNLOAD LANGUAGE", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     private String getLanguageCode(String language) {
