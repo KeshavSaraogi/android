@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CloudMessaging</string>
+    <string name="default_notification_channel_id">cloud_messaging_default_channel</string>
 </resources>
