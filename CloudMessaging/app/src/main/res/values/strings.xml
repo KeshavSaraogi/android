@@ -2,4 +2,6 @@
     <string name="app_name">CloudMessaging</string>
     <string name="default_notification_channel_id">cloud_messaging_default_channel</string>
     <string name="message">Cloud Message</string>
+    <string name="default_notification_channel_name">Weather</string>
+    <string name="msg_token_fmt">FCM REGISTERATION TOKEN: %s</string>
 </resources>
